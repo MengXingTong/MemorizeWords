@@ -17,9 +17,7 @@
 java --module-path ".\javafx-sdk-21.0.6\lib" --add-modules javafx.controls,javafx.fxml -jar MemorizeWords-0.1.jar
 ```
 注意需要将".\javafx-sdk-21.0.6\lib"替换为javafx的lib文件夹路径
+<br>如果电脑没有安装JavaFx-sdk，可解压项目资源目录下的JavaFx包，使用绝对路径
 
-如果电脑没有安装JavaFx-sdk，可解压项目资源目录下的JavaFx包，使用绝对路径
-
-Ps： 如果未使用Ollama，需要在自动生成的config.yml中修改url和使用的模型名称。
-项目没有兼容apikey，可自行修改MemoryPage.java兼容。
+Ps： 如果未使用Ollama，需要在自动生成的config.yml中修改url和使用的模型名称。<br>项目没有兼容apikey，可自行修改“MemoryPage.java”文件进行兼容。
 
