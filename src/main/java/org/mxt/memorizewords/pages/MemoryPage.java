@@ -243,6 +243,7 @@ public class MemoryPage extends VBox {
             }else{
                 // 结束
                 DataManager.completeList(fileName,wrongWords);
+                MainApplication.panes.put("刷单词",new VBox());
                 MainApplication.changePane("首页");
                 MainApplication.addNotification("你完成了" + fileName + "!");
                 return;

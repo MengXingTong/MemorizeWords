@@ -7,16 +7,11 @@ import atlantafx.base.util.Animations;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -33,8 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainApplication extends Application {
+    public static TabPane tabs;
     static StackPane contentArea;
-    private static final Map<String, Pane> panes = new HashMap<>();
+    public static final Map<String, Pane> panes = new HashMap<>();
     @Override
     public void start(Stage stage) throws IOException {
         // 初始化
@@ -49,29 +45,34 @@ public class MainApplication extends Application {
         BorderPane root = new BorderPane();
 
         // Tab栏
-        TabPane tabs = new TabPane();
-        Tab tab1 = new Tab("刷单词");
-        Tab tab2 = new Tab("统计");
-        Tab tab3 = new Tab("设置");
-        tabs.getTabs().addAll(tab1, tab2, tab3);
+        tabs = new TabPane();
+        Tab tab1 = new Tab("首页");
+        Tab tab2 = new Tab("刷单词");
+        Tab tab3 = new Tab("统计");
+        Tab tab4 = new Tab("设置");
+        tabs.getTabs().addAll(tab1, tab2, tab3, tab4);
         tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         // 内容界面
         contentArea = new StackPane();
         ListSelectPage page1 = new ListSelectPage();
-        StatisticsPage page2 = new StatisticsPage();
-        SettingPage page3 = new SettingPage();
+        VBox page2 = new VBox();
+        panes.put("刷单词",page2);
+        StatisticsPage page3 = new StatisticsPage();
+        SettingPage page4 = new SettingPage();
         panes.put("设置",page3);
         contentArea.getChildren().setAll(page1);
 
         // 切换界面
         tabs.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab == tab1) {
-                contentArea.getChildren().setAll(page1);
+                changePane("首页");
             } else if (newTab == tab2) {
-                changePane("统计");
+                changePane("刷单词");
             } else if (newTab == tab3) {
-                contentArea.getChildren().setAll(page3);
+                changePane("统计");
+            } else if (newTab == tab4) {
+                contentArea.getChildren().setAll(page4);
             }
         });
         // 加入布局
@@ -89,12 +90,18 @@ public class MainApplication extends Application {
     }
 
     public static void changePane(String key){
-        if(key.equals("首页")){
+        if(key.equals("首页")) {
+            tabs.getSelectionModel().select(0);
             changePane(new ListSelectPage());
             return;
+        }else if(key.equals("刷单词")){
+            tabs.getSelectionModel().select(1);
         }else if(key.equals("统计")){
+            tabs.getSelectionModel().select(2);
             changePane(new StatisticsPage());
             return;
+        }else if(key.equals("设置")){
+            tabs.getSelectionModel().select(3);
         }
         contentArea.getChildren().setAll(panes.get(key));
     }

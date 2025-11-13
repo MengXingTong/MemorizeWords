@@ -49,7 +49,8 @@ public class ListSelectPage extends HBox {
         Button button = new Button(text);
         button.setOnMouseClicked(event -> {
            MemoryPage memoryPage = new MemoryPage(text);
-           MainApplication.changePane(memoryPage);
+           MainApplication.panes.put("刷单词",memoryPage);
+           MainApplication.changePane("刷单词");
         });
         Label numLabel = new Label(num + "次");
         numLabel.setPadding(new Insets(0,0,0,10));
