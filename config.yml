@@ -1,0 +1,2 @@
+url: "http://localhost:11434/api/chat"
+model: "gemma3:1b"
